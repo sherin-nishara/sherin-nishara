@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { asset, resolve } from '$app/paths';
+	import { asset } from '$app/paths';
 	import GithubLogo from 'phosphor-svelte/lib/GithubLogo';
 	import LinkedinLogo from 'phosphor-svelte/lib/LinkedinLogo';
 	import XLogo from 'phosphor-svelte/lib/XLogo';
@@ -122,31 +122,31 @@
 	onMount(async () => {
 		try {
 			const res = await fetch(asset('scoreboard.json'));
+			if (!res.ok) throw new Error(`scoreboard.json ${res.status}`);
 			const data = await res.json();
-	
+
 			if (typeof data?.leetcode?.ranking === 'number') {
 				leetRank = data.leetcode.ranking;
 			}
-	
+
 			if (typeof data?.codeforces?.rating === 'number') {
 				cfRating = data.codeforces.rating;
 			}
-	
+
 			if (typeof data?.codechef?.rating === 'number') {
 				ccRating = data.codechef.rating;
 			}
-	
+
 			if (typeof data?.github?.commits === 'number') {
 				ghCommits = data.github.commits;
 			}
 		} catch {
-			// leave values as null; loading still ends normally
+			// Keep null values and let the loading screen end normally.
 		}
-	
+
 		const timer = setTimeout(() => {
 			loading = false;
 		}, 2200);
-	
 		return () => clearTimeout(timer);
 	});
 </script>

@@ -1,0 +1,89 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+
+const result = {
+	leetcode: null,
+	codeforces: null,
+	codechef: null,
+	github: null
+};
+
+async function fetchJson(url, options = {}) {
+	const res = await fetch(url, options);
+	if (!res.ok) throw new Error(`Request failed: ${url} -> ${res.status}`);
+	return res.json();
+}
+
+async function main() {
+	try {
+		const leetcodeQuery = `
+			query getUserProfile($username: String!) {
+				matchedUser(username: $username) {
+					profile {
+						ranking
+					}
+				}
+			}
+		`;
+
+		const leetcodeRes = await fetch('https://leetcode.com/graphql', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'User-Agent': 'Mozilla/5.0',
+				Referer: 'https://leetcode.com/',
+				Origin: 'https://leetcode.com'
+			},
+			body: JSON.stringify({
+				query: leetcodeQuery,
+				variables: { username: 'sherinars2004' }
+			})
+		});
+
+		const leetcodeBody = await leetcodeRes.json();
+		result.leetcode = {
+			ranking: leetcodeBody?.data?.matchedUser?.profile?.ranking ?? null
+		};
+
+		const cfInfo = await fetchJson('https://codeforces.com/api/user.info?handles=sherinars2004', {
+			headers: {
+				'User-Agent': 'Mozilla/5.0'
+			}
+		});
+		result.codeforces = {
+			rating: cfInfo?.result?.[0]?.rating ?? null
+		};
+
+		const ccHtml = await fetch('https://www.codechef.com/users/sherinnishara', {
+			headers: {
+				'User-Agent': 'Mozilla/5.0'
+			}
+		}).then((r) => r.text());
+
+		const ratingMatch = ccHtml.match(/class="rating-number">\s*(\d+)/);
+		result.codechef = {
+			rating: ratingMatch ? Number(ratingMatch[1]) : null
+		};
+
+		const commitsData = await fetchJson('https://api.github.com/repos/sherin-nishara/sherin-nishara/commits?per_page=1', {
+			headers: {
+				'User-Agent': 'Mozilla/5.0',
+				Accept: 'application/vnd.github+json'
+			}
+		});
+
+		result.github = {
+			commits: Array.isArray(commitsData) ? commitsData.length : 0
+		};
+
+		const outDir = path.resolve('static');
+		await fs.mkdir(outDir, { recursive: true });
+		await fs.writeFile(path.join(outDir, 'scoreboard.json'), JSON.stringify(result, null, 2));
+		console.log('scoreboard.json updated');
+	} catch (error) {
+		console.error('Failed to update scoreboard:', error);
+		process.exit(1);
+	}
+}
+
+main();
