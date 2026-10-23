@@ -9,10 +9,16 @@ export default defineConfig({
     tailwindcss(),
     sveltekit({
       compilerOptions: {
-        runes: ({ filename }) =>
+        runs: ({ filename }) =>
           filename.split(/[/\\]/).includes('node_modules') ? undefined : true
       },
-      adapter: adapter()
+      adapter: adapter({
+        fallback: '404.html',
+        strict: false
+      }),
+      paths: {
+        base: process.argv.includes('dev') ? '' : process.env.BASE_PATH
+      }
     })
   ]
 });
