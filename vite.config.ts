@@ -9,7 +9,7 @@ export default defineConfig({
     tailwindcss(),
     sveltekit({
       compilerOptions: {
-        runs: ({ filename }) =>
+        runes: ({ filename }) =>
           filename.split(/[/\\]/).includes('node_modules') ? undefined : true
       },
       adapter: adapter({
