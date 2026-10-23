@@ -1,6 +1,14 @@
 {
-  "leetcode": null,
-  "codeforces": null,
-  "codechef": null,
-  "github": null
+  "leetcode": {
+    "ranking": 478089
+  },
+  "codeforces": {
+    "rating": 375
+  },
+  "codechef": {
+    "rating": 625
+  },
+  "github": {
+    "commits": 1
+  }
 }
