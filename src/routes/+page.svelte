@@ -350,7 +350,7 @@
 			<footer aria-label="Contact" class="mx-auto mt-6 w-full max-w-xl shrink-0 text-center sm:mt-6">
 				<div class="flex items-center justify-center gap-2 text-muted-foreground">
 					<span class="hidden min-w-0 truncate text-[13px] italic sm:inline">I can make your thoughts into Digital Reality, Lets Connect</span>
-					<span class="shrink-0 text-[13px] italic sm:hidden">Lets Connect</span>
+					<span class="shrink-0 text-[13px] italic sm:hidden"></span>
 					<a
 						href="https://wa.me/917373221121"
 						target="_blank"
@@ -361,7 +361,7 @@
 					>
 						<WhatsappLogo size={17} aria-hidden="true" />
 					</a>
-					<span class="shrink-0 text-[10px]">WhatsApp only</span>
+					<span class="shrink-0 text-[10px]"></span>
 					<a
 						href="mailto:sherinnishara@outlook.com"
 						aria-label="Email sherinnishara@outlook.com"
