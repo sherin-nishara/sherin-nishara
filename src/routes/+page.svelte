@@ -119,38 +119,34 @@
 		`GH ${pad(ghCommits)}`
 	]);
 
-	onMount(() => {
-		// Live ranks for loading screen — fire all four in parallel, don't block the 2.2s timer
-		// NOTE: /api/* needs a server, so these 404 on GitHub Pages (static).
-		// They fail silently and stats stay "....." — site still loads.
-		fetch(resolve('/api/leetcode'))
-			.then((r) => (r.ok ? r.json() : null))
-			.then((d) => {
-				if (d?.ranking) leetRank = d.ranking;
-			})
-			.catch(() => {});
-		fetch(resolve('/api/codeforces'))
-			.then((r) => (r.ok ? r.json() : null))
-			.then((d) => {
-				if (typeof d?.rating === 'number') cfRating = d.rating;
-			})
-			.catch(() => {});
-		fetch(resolve('/api/codechef'))
-			.then((r) => (r.ok ? r.json() : null))
-			.then((d) => {
-				if (typeof d?.rating === 'number') ccRating = d.rating;
-			})
-			.catch(() => {});
-		fetch(resolve('/api/github'))
-			.then((r) => (r.ok ? r.json() : null))
-			.then((d) => {
-				if (typeof d?.commits === 'number') ghCommits = d.commits;
-			})
-			.catch(() => {});
-
+	onMount(async () => {
+		try {
+			const res = await fetch(asset('scoreboard.json'));
+			const data = await res.json();
+	
+			if (typeof data?.leetcode?.ranking === 'number') {
+				leetRank = data.leetcode.ranking;
+			}
+	
+			if (typeof data?.codeforces?.rating === 'number') {
+				cfRating = data.codeforces.rating;
+			}
+	
+			if (typeof data?.codechef?.rating === 'number') {
+				ccRating = data.codechef.rating;
+			}
+	
+			if (typeof data?.github?.commits === 'number') {
+				ghCommits = data.github.commits;
+			}
+		} catch {
+			// leave values as null; loading still ends normally
+		}
+	
 		const timer = setTimeout(() => {
 			loading = false;
 		}, 2200);
+	
 		return () => clearTimeout(timer);
 	});
 </script>
