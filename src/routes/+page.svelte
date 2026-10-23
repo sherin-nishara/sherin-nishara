@@ -230,33 +230,33 @@
 							class="min-w-0 flex-1 bg-transparent outline-none placeholder:text-neutral-600"
 						/>
 						{#if output === 'resume'}
-							<span class="flex shrink-0 items-center gap-1.5 font-sans">
-								<a
-									href={asset('resume.pdf')}
-									target="_blank"
-									rel="noopener"
-									class="inline-flex items-center gap-1 rounded-full bg-green-400 px-3 py-1 text-[11px] font-semibold text-neutral-950 transition hover:bg-green-300"
-								>
-									<FileText size={12} aria-hidden="true" /> open
-								</a>
-								<a
-									href={asset('resume.pdf')}
-									download
-									aria-label="Download resume"
-									title="Download resume"
-									class="inline-flex h-6 w-6 items-center justify-center rounded-full border border-green-400/40 text-green-200 transition hover:bg-green-400/10"
-								>
-									<DownloadSimple size={12} aria-hidden="true" />
-								</a>
-							</span>
+						  <span class="flex shrink-0 items-center gap-1.5 font-sans">
+						    <a
+						      href="https://drive.google.com/drive/folders/1pie8UMoHU_k1YBmzxojDJz149GFc7WPW?usp=sharing"
+						      target="_blank"
+						      rel="noopener"
+						      class="inline-flex items-center gap-1 rounded-full bg-green-400 px-3 py-1 text-[11px] font-semibold text-neutral-950 transition hover:bg-green-300"
+						    >
+						      <FileText size={12} aria-hidden="true" /> open
+						    </a>
+						    <a
+						      href="https://drive.google.com/drive/folders/1pie8UMoHU_k1YBmzxojDJz149GFc7WPW?usp=sharing"
+						      download
+						      aria-label="Download resume"
+						      title="Download resume"
+						      class="inline-flex h-6 w-6 items-center justify-center rounded-full border border-green-400/40 text-green-200 transition hover:bg-green-400/10"
+						    >
+						      <DownloadSimple size={12} aria-hidden="true" />
+						    </a>
+						  </span>
 						{:else}
-							<button
-								type="submit"
-								aria-label="Run command"
-								class="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-neutral-800 text-xs text-neutral-300 transition hover:bg-green-400 hover:text-neutral-950"
-							>
-								↵
-							</button>
+						  <button
+						    type="submit"
+						    aria-label="Run command"
+						    class="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-neutral-800 text-xs text-neutral-300 transition hover:bg-green-400 hover:text-neutral-950"
+						  >
+						    ↵
+						  </button>
 						{/if}
 					</form>
 					{#if output && output !== 'resume'}
@@ -350,7 +350,7 @@
 			<footer aria-label="Contact" class="mx-auto mt-6 w-full max-w-xl shrink-0 text-center sm:mt-6">
 				<div class="flex items-center justify-center gap-2 text-muted-foreground">
 					<span class="hidden min-w-0 truncate text-[13px] italic sm:inline">I can make your thoughts into Digital Reality, Lets Connect</span>
-					<span class="shrink-0 text-[13px] italic sm:hidden">Lets Connect</span>
+					<span class="shrink-0 text-[13px] italic sm:hidden"></span>
 					<a
 						href="https://wa.me/917373221121"
 						target="_blank"
@@ -361,7 +361,7 @@
 					>
 						<WhatsappLogo size={17} aria-hidden="true" />
 					</a>
-					<span class="shrink-0 text-[10px]">WhatsApp only</span>
+					<span class="shrink-0 text-[10px]"></span>
 					<a
 						href="mailto:sherinnishara@outlook.com"
 						aria-label="Email sherinnishara@outlook.com"
